@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders', # for CORS handling
+
     'rest_framework',
     'CodeCompiler',
     'questions',
@@ -51,6 +53,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+     # Add the middleware `'corsheaders.middleware.CorsMiddleware'` at the top of the `MIDDLEWARE`
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware', 
+
 ]
 
 ROOT_URLCONF = 'AppGenesisLMS.urls'
@@ -125,3 +132,29 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Allow all origins (for development purposes only, restrict this in production)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Alternatively, specify allowed origins
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # your Flutter web app's URL
+]
+
+# Allow specific HTTP methods
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS',
+]
+
+# Allow specific headers
+CORS_ALLOW_HEADERS = [
+    'Authorization',
+    'Content-Type',
+    'X-CSRFToken',
+]
